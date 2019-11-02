@@ -1,6 +1,7 @@
 import pydensecrf.densecrf as dcrf
 import numpy as np
 import sys
+import time
 
 from skimage.io import imread, imsave
 from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, create_pairwise_gaussian, unary_from_softmax
@@ -8,16 +9,24 @@ from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, creat
 from os import listdir, makedirs
 from os.path import isfile, join
 
-davis_path = '/scratch/clear/ptokmako/datasets/DAVIS'
-setting = sys.argv[1]
-out_folder = sys.argv[2]
+davis_path = '/home/zhang205/Github/Datasets/DAVIS'
+# setting = sys.argv[1]
+# out_folder = sys.argv[2]
+
+# Name of algorithm
+setting = 'LDOF_MP_Net'
+out_folder = setting + '_CRF'
+ 
+times = []
+
 for d in listdir(davis_path + '/Results/Segmentations/480p/' + setting):
 
     vidDir = join(davis_path + '/JPEGImages/480p', d)
     resDir = join(davis_path + '/Results/Segmentations/480p/' + out_folder, d)
     makedirs(resDir)
-    for f in listdir(vidDir):       
-
+    for f in listdir(vidDir):  
+        print('Processing motion segmentation map: {}'.format(f))     
+        time_start = time.time()
         img = imread(join(vidDir, f))
         segDir = join(davis_path + '/Results/Segmentations/480p/' + setting, d)
         frameName = str.split(f, '.')[0]
@@ -61,4 +70,9 @@ for d in listdir(davis_path + '/Results/Segmentations/480p/' + setting):
         MAP = np.argmax(Q, axis=0)
         MAP = colorize[MAP]
         
+        
         imsave(resDir + '/' + frameName + '.png', MAP.reshape(anno_rgb.shape))
+        times.append((time.time() - time_start))
+        print('Time Elapsed: {:.8f}s'.format(times[-1]))
+    
+print('Average Time: {:.8f}s / motion segmentation map'.format(np.mean(times)))

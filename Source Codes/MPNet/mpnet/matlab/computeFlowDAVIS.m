@@ -1,5 +1,5 @@
 function computeFlowDAVIS()  
-    davisPath = '/scratch/clear/ptokmako/datasets/DAVIS';
+    davisPath = '/home/zhang205/Github/Datasets/DAVIS';
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);
     for i = 3 : length(seqs)
