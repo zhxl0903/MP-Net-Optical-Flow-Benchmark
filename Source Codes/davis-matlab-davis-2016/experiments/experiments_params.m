@@ -17,6 +17,5 @@ techniques = {'LDOF_MP_Net_CRF'};
           
 % Names to be shown on the tables
 techniques_paper = {'LDOF MP-Net'};
-
 % Output folder to save files
 paper_data = './';       
