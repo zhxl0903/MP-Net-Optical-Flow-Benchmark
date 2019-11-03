@@ -72,23 +72,35 @@ local infer = Infer{
 --------------------------------------------------------------------------------
 -- do it
 print('| start')
-local davisPath = '/scratch/clear/ptokmako/datasets/DAVIS'
+local davisPath = '/home/zhang205/Github/Datasets/DAVIS'
 os.execute("mkdir " .. davisPath .. '/' .. 'Objectness100')
 os.execute("mkdir " .. davisPath .. '/' .. 'Objectness100/480p')
 local file = io.open(davisPath .. '/ImageSets/480p/trainval.txt')
-for line in file:lines() do
-	local input, label = line:match("([^ ]+) ([^ ]+)")
 
+local count = 0
+local s = 0
+for line in file:lines() do
+        
+	local input, label = line:match("([^ ]+) ([^ ]+)")
+        
+                
 	-- load image
 	local img = image.load(davisPath .. input)
 	local h,w = img:size(2),img:size(3)
+        
+        print(string.format("Processing frame: %s\n", input)) 
+        local start_time = os.clock()
 
 	-- forward all scales
 	infer:forward(img)
 
 	-- get top propsals
 	local masks, scores = infer:getTopProps(.2,h,w)
+        
+        local elapsed_time = os.clock() - start_time
+        print(string.format("Elapsed Time: %.8fs\n", elapsed_time))        
 
+        -- prepares resPath to save mask
 	local resPath = string.gsub(input, 'JPEGImages', 'Objectness100');
 	resPath = string.gsub(resPath, 'jpg', 'png');
 	local resultDir = string.gsub(resPath, '%d+.png', '');
@@ -97,8 +109,13 @@ for line in file:lines() do
 	end
 	
 	image.save(davisPath .. '/' .. resPath, masks:sum(1));
+        
+        count = count + 1
+        s = s + elapsed_time
 
 end
+
+print(string.format("Average Time: %.8fs / frame\n", s / count))
 
 print('| done')
 collectgarbage()

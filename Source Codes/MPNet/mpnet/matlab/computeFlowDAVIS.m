@@ -2,10 +2,15 @@ function computeFlowDAVIS()
     davisPath = '/home/zhang205/Github/Datasets/DAVIS';
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);
+    t=[];
     for i = 3 : length(seqs)
         seqs(i).name
+        tic;
         computeFlowSeq(davisPath, seqs(i).name);
+        time_elapsed = toc;
+        t=[t time_elapsed];
     end        
+    fprintf('Average Time: %.8fs / flowmap\n', mean(t));
 end
 
 function computeFlowSeq(davisPath, seqName)

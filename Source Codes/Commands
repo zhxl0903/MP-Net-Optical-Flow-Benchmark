@@ -1,0 +1,5 @@
+Compute Optical Flow (LDOF):
+
+
+Compute objectness maps:
+th compute_objectness_DAVIS.lua pretrained/sharpmask -np 100
