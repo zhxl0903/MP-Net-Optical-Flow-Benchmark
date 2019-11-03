@@ -71,7 +71,7 @@ for d in listdir(davis_path + '/Results/Segmentations/480p/' + setting):
         MAP = colorize[MAP]
         
         
-        imsave(resDir + '/' + frameName + '.png', MAP.reshape(anno_rgb.shape))
+        imsave(resDir + '/' + frameName + '.png', MAP.reshape(anno_rgb.shape).astype(np.uint8))
         times.append((time.time() - time_start))
         print('Time Elapsed: {:.8f}s'.format(times[-1]))
     
