@@ -3,20 +3,31 @@ function computeFlowDAVIS()
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);
     
-    times_list = [];
+    % defines flowmap conversion time
+    flow_conversion_times_list = [];
+
+    % defines flow estimation time
+    flow_estimation_time_list = [];
     for i = 3 : length(seqs)
         seqs(i).name
-        times_list = [times_list computeFlowSeq(davisPath, seqs(i).name)];
+        [t1, t2] = computeFlowSeq(davisPath, seqs(i).name);
+        flow_conversion_times_list = [flow_conversion_times_list t1];
+        flow_estimation_time_list = [flow_estimation_time_list t2];
     end        
-    fprintf('Average Time: %.8fs / flowmap\n', mean(times_list));
+    fprintf('Average Flowmap Conversion Time: %.8fs / flowmap\n', mean(flow_conversion_times_list));
+    fprintf('Average LDOF Flow Estimation Time: %.8fs / flowmap\n', mean(flow_estimation_time_list));
 end
 
-function t = computeFlowSeq(davisPath, seqName)
+function [flow_conversion_time, flow_estimation_time] = computeFlowSeq(davisPath, seqName)
     frames = dir([davisPath, '/JPEGImages/480p/', seqName]);
     mkdir([davisPath, '/OpticalFlow/480p/', seqName])
     fid = fopen([davisPath, '/OpticalFlow/480p/', seqName, '/minmax.txt'], 'w');
     
-    t=[];
+    % Defines flowmap conversion time
+    flow_conversion_time=[];
+    
+    % Defines optical flow estimation time
+    flow_estimation_time=[];
     for i = 3 : length(frames) - 1
         frame_name = frames(i).name;
         split = strsplit(frame_name, '.');
@@ -25,8 +36,10 @@ function t = computeFlowSeq(davisPath, seqName)
         frame2 = imread([davisPath, '/JPEGImages/480p/', seqName, '/' ...
             , frames(i + 1).name]);
         
+        tic;
         [flow, ~] = sundaramECCV10_ldof_GPU_mex(frame1, frame2);
-        
+        flow_estimation_time = [flow_estimation_time toc];
+
         tic;
         temp = flow(:, :, 2);
         flow(:, :, 2) = flow(:, :, 1);        
@@ -50,9 +63,7 @@ function t = computeFlowSeq(davisPath, seqName)
         minMagnitude = min(magnitudes(:));
         maxMagnitude = max(magnitudes(:));
         magnitudes = (magnitudes - minMagnitude) ./ (maxMagnitude - minMagnitude);
-        
-        time_elapsed = toc;
-        t = [t time_elapsed];
+        flow_conversion_time = [flow_conversion_time toc];
         
         imwrite(magnitudes, [davisPath, '/OpticalFlow/480p/', seqName ...
             , '/magField_', split{1}, '.jpg']);
