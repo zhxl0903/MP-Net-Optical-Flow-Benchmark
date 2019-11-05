@@ -1,2 +1,10 @@
 % main.m
-addpath(fullfile(db
+addpath(fullfile(db_matlab_root_dir, 'db_util'));
+addpath(fullfile(db_matlab_root_dir, 'measures'));
+addpath(fullfile(db_matlab_root_dir, 'experiments'));
+
+% evaluates result for algorithms given algorithm name, tests, and gt: val, train, or all
+[eval, raw_eval] = eval_all({'J', 'F', 'T'}, 'all');
+
+% Generates global table given eval results
+global_table();
