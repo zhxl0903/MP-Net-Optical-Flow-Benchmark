@@ -13,9 +13,9 @@ seqs=seqs([seqs(:).isdir]==1);
 seqs=seqs(~ismember({seqs(:).name},{'.','..'}));
 
 for k = 1:length(seqs)
-    seq_path = fullfile(seqs(k).folder, seq(k).name);
-    save_path = fullfile(flow_path, seq(k).name);
+    seq_path = fullfile(seqs(k).folder, seqs(k).name);
+    save_path = fullfile(flow_path, seqs(k).name);
     mkdir(save_path);
     
-    dir_get_epicflow(seq_path, save_path);
+    dir_get_epicflow(seq_path, save_path, 8);
 end
