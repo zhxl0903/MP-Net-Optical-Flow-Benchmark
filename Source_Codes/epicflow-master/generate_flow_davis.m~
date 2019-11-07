@@ -1,0 +1,10 @@
+davis_path='/home/zhang205/Github/Datasets/DAVIS';
+
+frames_path = strcat(davis_path, '/JPEGImages/480p/');
+
+% get the folder contents
+seqs = dir(frames_path)
+% remove all files (isdir property is 0)
+seqs = seqs([seqs(:).isdir]==1)
+% remove '.' and '..'
+seqs = seqs(~ismember({seqs(:).name},{'.','..'}))

@@ -36,7 +36,7 @@ end
 function update_dir( cur_dir, cur_save_dir, n_pool, opt_step, opt_interval)
 
 % frame & flow files 
-files = dir(fullfile(cur_dir,'*.png')); 
+files = dir(fullfile(cur_dir,'*.jpg')); 
 file_names = sort({files.name}); 
 dirs = dir(cur_dir);
 dir_names = {dirs.name};
