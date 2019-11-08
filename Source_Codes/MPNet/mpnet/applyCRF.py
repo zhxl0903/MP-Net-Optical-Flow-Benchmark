@@ -14,7 +14,7 @@ davis_path = '/home/zhang205/Github/Datasets/DAVIS'
 # out_folder = sys.argv[2]
 
 # Name of algorithm
-setting = 'LDOF_MP_Net'
+setting = 'Epicflow_MP_Net'
 out_folder = setting + '_CRF'
  
 times = []

@@ -7,7 +7,7 @@ require 'ResizeJoinTable'
 cmd = torch.CmdLine()
 cmd:option('-gpu', 0, 'GPU id')
 cmd:option('-model', 'model_paper.dat', 'model to test')
-cmd:option('-setting', 'LDOF_MP_Net', 'version of the model')
+cmd:option('-setting', 'Epicflow_MP_Net', 'version of the model')
 
 local params = cmd:parse(arg)
 local davisDir = '/home/zhang205/Github/Datasets/DAVIS'
@@ -28,7 +28,6 @@ for line in file:lines() do
     
     --gets directory of flowmap
     local flowPath = string.gsub(davisDir .. input, 'JPEGImages', 'OpticalFlow')
-    local flowPath = string.gsub(flowPath, 'jpg', 'png');
 
     print(string.format("Processing flowmap: %s\n", flowPath))  
 

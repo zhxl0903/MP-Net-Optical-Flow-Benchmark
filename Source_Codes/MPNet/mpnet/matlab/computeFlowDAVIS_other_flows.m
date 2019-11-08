@@ -1,45 +1,47 @@
-function computeFlowDAVIS()  
+function computeFlowDAVIS_other_flows()  
     davisPath = '/home/zhang205/Github/Datasets/DAVIS';
+    flow_method = 'Epicflow';
+    
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);
     
     % defines flowmap conversion time
     flow_conversion_times_list = [];
 
-    % defines flow estimation time
-    flow_estimation_time_list = [];
     for i = 3 : length(seqs)
         seqs(i).name
-        t1, t2 = computeFlowSeq(davisPath, seqs(i).name)
+        [t1] = computeFlowSeq(davisPath, flow_method, seqs(i).name);
         flow_conversion_times_list = [flow_conversion_times_list t1];
-        flow_estimation_time_list = [flow_estimation_time_list t2];
     end        
-    fprintf('Average FLowmap Conversion Time: %.8fs / flowmap\n', mean(flow_conversion_times_list));
-    fprintf('Average LDOF Flow Estimation Time: %.8fs / flowmap\n', mean(flow_estimation_time_list));
+    fprintf('Average Flowmap Conversion Time: %.8fs / flowmap\n', mean(flow_conversion_times_list));
 end
 
-function [flow_conversion_time, flow_estimation_time] = computeFlowSeq(davisPath, seqName)
-    frames = dir([davisPath, '/JPEGImages/480p/', seqName]);
+function [flow_conversion_time] = computeFlowSeq(davisPath, flowMethod, seqName)
+
+    % Gets flow files for seq given flowMethod
+    seq_path = fullfile(davisPath, 'OpticalFlow', strcat('480p_', flowMethod), seqName);
+    flows = dir([seq_path]);
+    
+    % Creates save dir for seq seqName
     mkdir([davisPath, '/OpticalFlow/480p/', seqName])
+    
+    % Creates file to save minmax values
     fid = fopen([davisPath, '/OpticalFlow/480p/', seqName, '/minmax.txt'], 'w');
     
     % Defines flowmap conversion time
     flow_conversion_time=[];
     
-    % Defines optical flow estimation time
-    flow_estimation_time=[];
-    for i = 3 : length(frames) - 1
-        frame_name = frames(i).name;
-        split = strsplit(frame_name, '.');
-        frame1 = imread([davisPath, '/JPEGImages/480p/', seqName, '/' ...
-            , frames(i).name]);
-        frame2 = imread([davisPath, '/JPEGImages/480p/', seqName, '/' ...
-            , frames(i + 1).name]);
+    % Loops over each flow file in seq in numeric order
+    for i = 3 : length(flows)
         
-	tic;
-        [flow, ~] = sundaramECCV10_ldof_GPU_mex(frame1, frame2);
-        flow_estimation_time = [flow_estimation_time toc];
-
+        % Gets name of flow file
+        flow_name = flows(i).name;
+        split = strsplit(flow_name, '.');
+        
+        % Reads flowmap
+        flow = readFlowFile(fullfile(flows(i).folder, flow_name));
+        
+        % Times flowmap conversion time
         tic;
         temp = flow(:, :, 2);
         flow(:, :, 2) = flow(:, :, 1);        
@@ -64,11 +66,10 @@ function [flow_conversion_time, flow_estimation_time] = computeFlowSeq(davisPath
         maxMagnitude = max(magnitudes(:));
         magnitudes = (magnitudes - minMagnitude) ./ (maxMagnitude - minMagnitude);
         
-        time_elapsed = toc;
-        flow_conversion_time = [flow_conversion_time time_elapsed];
-        
         imwrite(magnitudes, [davisPath, '/OpticalFlow/480p/', seqName ...
             , '/magField_', split{1}, '.jpg']);
+        
+        flow_conversion_time = [flow_conversion_time toc];
         
         fprintf(fid, '%f %f %f %f\n', minAngle, maxAngle, minMagnitude, maxMagnitude);
     end
