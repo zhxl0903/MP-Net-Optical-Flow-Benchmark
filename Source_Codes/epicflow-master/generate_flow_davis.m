@@ -15,18 +15,21 @@ seqs=seqs([seqs(:).isdir]==1);
 seqs=seqs(~ismember({seqs(:).name},{'.','..'}));
 flow_times = [];
 
+flow_map_count=0;
+
 for k = 1:length(seqs)
     seq_path = fullfile(seqs(k).folder, seqs(k).name);
     save_path = fullfile(flow_path, seqs(k).name);
     
-    % Counts number of flowmaps in seq
+    % Counts number of flowmaps in seq and increases flow_map_count
     n_flow_maps = length(dir(seq_path))-3;
+    flow_map_count = flow_map_count + n_flow_maps;
     
     mkdir(save_path);
     
     tic;
     dir_get_epicflow(seq_path, save_path, 0);
-    flow_times = [flowt_times, toc/n_flow_maps];
+    flow_times = [flow_times, toc];
 end
 
-fprintf('Average Flow Estimation Time: %.8f\n / frame pair', mean(flow_times));
+fprintf('Average Flow Estimation Time: %.8fs\n / frame pair', sum(flow_times)/flow_map_count);
