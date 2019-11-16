@@ -2,7 +2,8 @@
 	"Tgt": "0.095",
 	"techniques": [
 		"LDOF_MP_Net_CRF",
-		"Epicflow_MP_Net_CRF"
+		"Epicflow_MP_Net_CRF",
+		"Flownet2_MP_Net_CRF"
 	],
 	"LDOF_MP_Net_CRF": {
 		"Jmean": "0.699",
@@ -21,5 +22,14 @@
 		"Frecall": "0.764",
 		"Fdecay": "0.053",
 		"T": "0.739"
+	},
+	"Flownet2_MP_Net_CRF": {
+		"Jmean": "0.698",
+		"Jrecall": "0.847",
+		"Jdecay": "0.048",
+		"Fmean": "0.669",
+		"Frecall": "0.789",
+		"Fdecay": "0.057",
+		"T": "0.668"
 	}
 }
