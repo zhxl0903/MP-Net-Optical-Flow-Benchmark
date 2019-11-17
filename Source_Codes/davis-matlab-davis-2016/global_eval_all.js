@@ -3,7 +3,8 @@
 	"techniques": [
 		"LDOF_MP_Net_CRF",
 		"Epicflow_MP_Net_CRF",
-		"Flownet2_MP_Net_CRF"
+		"Flownet2_MP_Net_CRF",
+		"Spynet_MP_Net_CRF"
 	],
 	"LDOF_MP_Net_CRF": {
 		"Jmean": "0.699",
@@ -31,5 +32,14 @@
 		"Frecall": "0.789",
 		"Fdecay": "0.057",
 		"T": "0.668"
+	},
+	"Spynet_MP_Net_CRF": {
+		"Jmean": "0.646",
+		"Jrecall": "0.753",
+		"Jdecay": "0.055",
+		"Fmean": "0.602",
+		"Frecall": "0.680",
+		"Fdecay": "0.082",
+		"T": "0.703"
 	}
 }

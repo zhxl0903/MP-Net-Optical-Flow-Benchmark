@@ -1,6 +1,6 @@
 function computeFlowDAVIS_other_flows()  
     davisPath = '/home/zhang205/Github/Datasets/DAVIS';
-    flow_method = 'Flownet2';
+    flow_method = 'Spynet';
     
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);
