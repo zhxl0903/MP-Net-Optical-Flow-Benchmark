@@ -1,4 +1,9 @@
 function computeFlowDAVIS()  
+    %{
+      This function computes optical flow using LDOF and converts
+      the flowmaps to angle and speed maps. 
+    %}
+
     davisPath = '/home/zhang205/Github/Datasets/DAVIS';
     addpath(genpath('.'))
     seqs = dir([davisPath, '/JPEGImages/480p']);

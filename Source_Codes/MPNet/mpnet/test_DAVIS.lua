@@ -7,7 +7,7 @@ require 'ResizeJoinTable'
 cmd = torch.CmdLine()
 cmd:option('-gpu', 0, 'GPU id')
 cmd:option('-model', 'model_paper.dat', 'model to test')
-cmd:option('-setting', 'Spynet_MP_Net', 'version of the model')
+cmd:option('-setting', 'SelFlow_MP_Net', 'version of the model')
 
 local params = cmd:parse(arg)
 local davisDir = '/home/zhang205/Github/Datasets/DAVIS'

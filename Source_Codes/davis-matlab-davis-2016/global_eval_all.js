@@ -4,7 +4,9 @@
 		"LDOF_MP_Net_CRF",
 		"Epicflow_MP_Net_CRF",
 		"Flownet2_MP_Net_CRF",
-		"Spynet_MP_Net_CRF"
+		"Spynet_MP_Net_CRF",
+		"PWC_Net_MP_Net_CRF",
+		"SelFlow_MP_Net_CRF"
 	],
 	"LDOF_MP_Net_CRF": {
 		"Jmean": "0.699",
@@ -41,5 +43,23 @@
 		"Frecall": "0.680",
 		"Fdecay": "0.082",
 		"T": "0.703"
+	},
+	"PWC_Net_MP_Net_CRF": {
+		"Jmean": "0.677",
+		"Jrecall": "0.814",
+		"Jdecay": "0.058",
+		"Fmean": "0.649",
+		"Frecall": "0.755",
+		"Fdecay": "0.061",
+		"T": "0.773"
+	},
+	"SelFlow_MP_Net_CRF": {
+		"Jmean": "0.701",
+		"Jrecall": "0.841",
+		"Jdecay": "0.036",
+		"Fmean": "0.674",
+		"Frecall": "0.792",
+		"Fdecay": "0.048",
+		"T": "0.724"
 	}
 }

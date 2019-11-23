@@ -1,4 +1,8 @@
 function computeFlowDAVIS_other_flows()  
+    %{
+      This function converts flowmaps from flow_method to angle
+      and speed maps.
+    %}
     davisPath = '/home/zhang205/Github/Datasets/DAVIS';
     flow_method = 'Spynet';
     

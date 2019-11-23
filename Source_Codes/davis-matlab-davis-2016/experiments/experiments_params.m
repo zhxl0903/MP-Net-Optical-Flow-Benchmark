@@ -13,9 +13,13 @@
 % ------------------------------------------------------------------------
 
 % List of techniques compared
-techniques = {'LDOF_MP_Net_CRF', 'Epicflow_MP_Net_CRF', 'Flownet2_MP_Net_CRF', 'Spynet_MP_Net_CRF'};
+techniques = {'LDOF_MP_Net_CRF', 'Epicflow_MP_Net_CRF', ...,
+    'Flownet2_MP_Net_CRF', 'Spynet_MP_Net_CRF', ...,
+    'PWC_Net_MP_Net_CRF', 'SelFlow_MP_Net_CRF'};
           
 % Names to be shown on the tablesSpynet_MP_Net_CRF
-techniques_paper = {'LDOF MP-Net', 'Epicflow_MP_Net_CRF', 'Flownet2_MP_Net_CRF', 'Spynet_MP_Net_CRF'};
+techniques_paper = {'LDOF MP-Net', 'Epicflow_MP_Net_CRF', ...,
+    'Flownet2_MP_Net_CRF', 'Spynet_MP_Net_CRF', ...,
+    'PWC_Net_MP_Net_CRF', 'SelFlow_MP_Net_CRF'};
 % Output folder to save files
 paper_data = './';       
