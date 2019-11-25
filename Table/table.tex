@@ -6,7 +6,7 @@
 \begin{center}
 \begin{tabular}{l | c | c cccccccc}
 \hline
-\multicolumn{2}{c|}{Flow Used} & EpicFlow & Flownet2 & LDOF & PWC-Net & SelFlow & SPyNet \\ \hline
+\multicolumn{2}{c|}{Flow Used} & EpicFlow & FlowNet2 & LDOF & PWC-Net & SelFlow & SPyNet \\ \hline
                 & Mean       & 0.677                   & 0.698                   & 0.699               & 0.677                  & 0.701                  & 0.646                 \\
 \textit{$\mathcal{J}$}      & Recall     & 0.808                   & 0.847                   & 0.832               & 0.814                  & 0.841                  & 0.753                 \\
                 & Decay      & 0.040                   & 0.048                   & 0.052               & 0.058                  & 0.036                  & 0.055                 \\ \hline
@@ -35,6 +35,23 @@ CRF         & 403.78               \\
 Total       & 2556.00
 \end{tabular}
 \caption{Runtime of each component of MP-Net + Objectness + CRF on DAVIS.}
+\vspace{-0.7cm}
+\end{center}
+\end{table*}
+
+\begin{table*}
+\footnotesize
+\begin{center}
+\begin{tabular}{l|l}
+Flow Method & Average Runtime (ms / flowmap) \\ \hline
+EpicFlow    & 54287.52                       \\
+FlowNet2    & 151.45                         \\
+LDOF        & 2474.83                        \\
+PWC-Net     & 17.54                          \\
+SelFlow     & 102.35                         \\
+SPyNet      & 333.93                        
+\end{tabular}
+\caption{Runtime of each optical flow estimation model on DAVIS.}
 \vspace{-0.7cm}
 \end{center}
 \end{table*}
