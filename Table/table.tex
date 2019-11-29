@@ -1,5 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 \pdfoutput=1
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 \begin{document}
 \begin{table*}
 \footnotesize
@@ -52,6 +54,27 @@ SelFlow     & 102.35                         \\
 SPyNet      & 333.93                        
 \end{tabular}
 \caption{Runtime of each optical flow estimation model on DAVIS.}
+\vspace{-0.7cm}
+\end{center}
+\end{table*}
+
+
+\begin{table*}
+\footnotesize
+\begin{center}
+\begin{tabular}{|l|cc|cc|}
+\hline
+Method     & \multicolumn{2}{c|}{{\ul Sintel \textit{Clean}}} & \multicolumn{2}{c|}{{\ul Sintel \textit{Final}}} \\
+           & \multicolumn{2}{c|}{AEE}                & \multicolumn{2}{c|}{AEE}                \\
+           & \textit{train}      & \textit{test}     & \textit{train}      & \textit{test}     \\ \hline
+EpicFlow   & 2.27                & 4.12              & 3.56                & 6.29              \\
+FlowNet2   & 2.02                & 3.96              & 3.14                & 6.02              \\
+LDOF (GPU) & 4.76                & -                 & 6.32                & -                 \\
+PWC-Net+ft & 1.70                & \textbf{2.21}     & 3.86                & 5.13              \\
+SelFlow+ft & \textbf{1.68}       & 3.74              & \textbf{1.77}       & \textbf{4.26}     \\
+SPyNet+ft  & 3.17                & 6.64              & 4.32                & 8.36              \\ \hline
+\end{tabular}
+\caption{Performance comparison of optical flow estimation models on MPI Sintel Dataset. AEE: Average Endpoint Error. The best result for each category is highlighted in bold.}
 \vspace{-0.7cm}
 \end{center}
 \end{table*}
