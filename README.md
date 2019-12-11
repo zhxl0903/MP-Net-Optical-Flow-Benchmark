@@ -1,14 +1,12 @@
-# MP-Net-Optical-Flow-Benchmark
+# MP-Net Optical Flow Benchmark
 
-This project contains the benchmark results for MP-Net using optical flow estimations from 6 models
-on DAVIS 2016. The results are obtained on a desktop equipped with GTX 1080 and Ryzen 7 3800x.
+This project contains the benchmark results for MP-Net on DAVIS 2016 using optical flow estimations from 6 models. The results are obtained on a desktop PC equipped with GTX 1080 and Ryzen 7 3800x.
 
 ## Benchmark Results
 
 ![Table1](/Table/table1.png)
 ![Table2](/Table/table2.png)
 ![Table3](/Table/table3.png)
-![Table4](/Table/table4.png)
 
 ## References
 
