@@ -38,4 +38,6 @@ This project contains benchmark results for MP-Net on DAVIS 2016 using input opt
 
 [14] P. Krӓhenbühl and V. Koltun. Efficient inference in fully connected CRFs with gaussian edge potentials. In NIPS, 2011.
 
+[15] Butler, Daniel J, Wulff, Jonas, Stanley, Garrett B, and Black, Michael J. A naturalistic open source movie for optical flow evaluation. In European conference on computer vision, pp. 611–625. Springer, 2012.
+
 
